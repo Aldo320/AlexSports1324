@@ -191,7 +191,7 @@ botonSorteo.addEventListener('click', () =>{
       }  
     })
 
-const lista = document.querySelector("#listado")
+const lista = document.querySelector("#productos")
 
 const pedirPost = async()=>{
     const respuesta = await fetch('https://jsonplaceholder.typicode.com/posts')
