@@ -1,0 +1,26 @@
+[
+{
+    "producto":"Nike AirMax", 
+    "precio": 5490
+},
+{
+    "producto":"Adidas Coreracer",
+    "precio": 4290
+},
+{
+    "producto":"Puma Xray Deportivo", 
+    "precio": 4990
+},
+{
+    "producto":"Reebok Triplehall", 
+    "precio": 2880
+},
+{
+    "producto":"New Balance Lifestyle", 
+    "precio": 3990
+},
+{
+    "producto":"York Umbro",
+     "precio": 4150
+}
+]
