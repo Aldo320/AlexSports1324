@@ -44,15 +44,11 @@
 
 
     function anyadirProductoAlCarrito(evento) {
-        fetch('data.json')
-        .then((response)=>response.json())
-        .then((data)=>{
-        data.forEach((carrito)=>{
+
         carrito.push(evento.target.getAttribute('marcador'))
         renderizarCarrito();
         actualizarCarrito(carrito)
     
-    }),
 
     function renderizarCarrito() {
         fetch('data.json')
@@ -85,37 +81,27 @@
     }),
     
     function comprarItemCarrito(evento) {
-        fetch('data.json')
-        .then((response)=>response.json())
-        .then((data)=>{
-            data.forEach((carrito)=>{
         const id = evento.target.dataset.item;
         carrito = carrito.filter((carritoId) => {
             return carritoId !== id;
         });
         renderizarCarrito();
-    }),
+    },
     
     function calcularTotal() {
-        fetch('data.json')
-        .then((response)=>response.json())
-        .then((data)=>{
         return carrito.reduce((total, item) => {
             const miItem = data.filter((itemdata) => {
                 return itemdata.id === parseInt(item);
             });
             return total + miItem[0].precio;
         }, 0).toFixed(2);
-    })
+    }
     
 
     function comprarCarrito() {
-        fetch('data.json')
-        .then((response)=>response.json())
-        .then((data)=>{
         carrito = [];
         renderizarCarrito();
-    })
+    }
     
     botonComprar.addEventListener('click', comprarCarrito);
     
@@ -200,4 +186,4 @@ botonSorteo.addEventListener('click', () =>{
       if (email) {
         Swal.fire(`Entered email: ${email}`)
       }  
-    })
+    }
