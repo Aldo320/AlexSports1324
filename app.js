@@ -1,17 +1,4 @@
-    const Championes = [
-        {id: 1, producto:"Nike AirMax", precio: 5490, imagen: '../assets/img/Nike-logo.jpg'},
-        {id: 2, producto:"Adidas Coreracer", precio: 4290, imagen: '../assets/img/historia-origen-marcas-adidas.jpg'},
-        {id: 3, producto:"Puma Xray Deportivo", precio: 4990, imagen: '../assets/img/PUMA-logo.jpg'},
-        {id: 4, producto:"Reebok Triplehall", precio: 2880, imagen: '../assets/img/Reebok.jpg' },
-        {id: 5, producto:"New Balance Lifestyle", precio: 3990, imagen: '../assets/img/New-Balance-logo.jpg'},
-        {id: 6, producto:"York Umbro", precio: 4150, imagen: '../assets/img/Umbro-Logo-1999.jpg'},
-    ]
 
-
-
-
-    const [Nike,Adidas,Puma,Reebok,York,Umbro]= data
-console.log (Nike)
 
     let carrito = [];
     const divisa = '$';
@@ -24,7 +11,10 @@ console.log (Nike)
     
    
     function renderizarProductos() {
-        data.forEach((info) => {
+        fetch('data.json')
+        .then((response)=>response.json())
+        .then((data)=>{
+            data.forEach((info)=>{
             const Clase = document.createElement('div');
             Clase.classList.add('card', 'col-sm-4');
             const CardBody = document.createElement('div');
@@ -50,17 +40,25 @@ console.log (Nike)
             Clase.appendChild(CardBody);
             DOMitems.appendChild(Clase);
         });
-    }
     
-Championes
+
+
     function anyadirProductoAlCarrito(evento) {
+        fetch('data.json')
+        .then((response)=>response.json())
+        .then((data)=>{
+        data.forEach((carrito)=>{
         carrito.push(evento.target.getAttribute('marcador'))
         renderizarCarrito();
         actualizarCarrito(carrito)
     
-    }
+    }),
 
     function renderizarCarrito() {
+        fetch('data.json')
+        .then((response)=>response.json())
+        .then((data)=>{
+            data.forEach((carrito)=>{
         DOMcarrito.textContent = '';
         const carritoSinDuplicados = [...new Set(carrito)];
         carritoSinDuplicados.forEach((item) => {
@@ -84,30 +82,40 @@ Championes
             DOMcarrito.appendChild(Clase);
         });
         DOMtotal.textContent = calcularTotal();
-    }
+    }),
     
     function comprarItemCarrito(evento) {
+        fetch('data.json')
+        .then((response)=>response.json())
+        .then((data)=>{
+            data.forEach((carrito)=>{
         const id = evento.target.dataset.item;
         carrito = carrito.filter((carritoId) => {
             return carritoId !== id;
         });
         renderizarCarrito();
-    }
+    }),
     
     function calcularTotal() {
+        fetch('data.json')
+        .then((response)=>response.json())
+        .then((data)=>{
         return carrito.reduce((total, item) => {
             const miItem = data.filter((itemdata) => {
                 return itemdata.id === parseInt(item);
             });
             return total + miItem[0].precio;
         }, 0).toFixed(2);
-    }
+    })
     
 
     function comprarCarrito() {
+        fetch('data.json')
+        .then((response)=>response.json())
+        .then((data)=>{
         carrito = [];
         renderizarCarrito();
-    }
+    })
     
     botonComprar.addEventListener('click', comprarCarrito);
     
@@ -193,23 +201,3 @@ botonSorteo.addEventListener('click', () =>{
         Swal.fire(`Entered email: ${email}`)
       }  
     })
-
-function crearCards() {
-    fetch('data.json')
-    .then((response)=>response.json())
-    .then((data)=>{
-        data.forEach((producto)=>{
-            let cardNueva = document.createElement('div');
-            cardNueva.innerHTML =
-            `<img src= ${producto.img} class="card-img-top" alt="...">
-            <h5 class="card-title">${producto.nombre}</h5>
-            <div class="card-body text-center>
-            <p class="card-text">$ ${producto.precio}</p>
-            <button id="${producto.id}" class="third add">Añadir<i class="fa fa-shopping-cart in-card" aria-hidden="true"></i> </button>
-            </div>`;
-            document.getElementById('cards').append(cardNueva);
-            cardNueva.classList.add('card','col-4','m-3');
-        });
-    })
-}
-
