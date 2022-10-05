@@ -7,7 +7,10 @@
         {id: 6, producto:"York Umbro", precio: 4150, imagen: '../assets/img/Umbro-Logo-1999.jpg'},
     ]
 
-    const [Nike,Adidas,Puma,Reebok,York,Umbro]= Championes
+
+
+
+    const [Nike,Adidas,Puma,Reebok,York,Umbro]= data
 console.log (Nike)
 
     let carrito = [];
@@ -21,7 +24,7 @@ console.log (Nike)
     
    
     function renderizarProductos() {
-        Championes.forEach((info) => {
+        data.forEach((info) => {
             const Clase = document.createElement('div');
             Clase.classList.add('card', 'col-sm-4');
             const CardBody = document.createElement('div');
@@ -49,7 +52,7 @@ console.log (Nike)
         });
     }
     
-
+Championes
     function anyadirProductoAlCarrito(evento) {
         carrito.push(evento.target.getAttribute('marcador'))
         renderizarCarrito();
@@ -61,8 +64,8 @@ console.log (Nike)
         DOMcarrito.textContent = '';
         const carritoSinDuplicados = [...new Set(carrito)];
         carritoSinDuplicados.forEach((item) => {
-            const miItem = Championes.filter((itemChampiones) => {
-                return itemChampiones.id === parseInt(item);
+            const miItem = data.filter((itemdata) => {
+                return itemdata.id === parseInt(item);
             });
             const numeroUnidadesItem = carrito.reduce((total, itemId) => {
                 return itemId === item ? total += 1 : total;
@@ -93,8 +96,8 @@ console.log (Nike)
     
     function calcularTotal() {
         return carrito.reduce((total, item) => {
-            const miItem = Championes.filter((itemChampiones) => {
-                return itemChampiones.id === parseInt(item);
+            const miItem = data.filter((itemdata) => {
+                return itemdata.id === parseInt(item);
             });
             return total + miItem[0].precio;
         }, 0).toFixed(2);
@@ -191,20 +194,22 @@ botonSorteo.addEventListener('click', () =>{
       }  
     })
 
-const lista = document.querySelector("#productos")
-
-const pedirPost = async()=>{
-    const respuesta = await fetch('https://jsonplaceholder.typicode.com/posts')
-    const data = await respuesta.json()
-
-    data.forEach((post)=>{
-        const li = document.createElement("li")
-        li.innerHTML=`
-        <h4>${post.title}</h4>
-        <h5>${post.body}</h5>
-        `
-        lista.append(li)
+function crearCards() {
+    fetch('data.json')
+    .then((response)=>response.json())
+    .then((data)=>{
+        data.forEach((producto)=>{
+            let cardNueva = document.createElement('div');
+            cardNueva.innerHTML =
+            `<img src= ${producto.img} class="card-img-top" alt="...">
+            <h5 class="card-title">${producto.nombre}</h5>
+            <div class="card-body text-center>
+            <p class="card-text">$ ${producto.precio}</p>
+            <button id="${producto.id}" class="third add">Añadir<i class="fa fa-shopping-cart in-card" aria-hidden="true"></i> </button>
+            </div>`;
+            document.getElementById('cards').append(cardNueva);
+            cardNueva.classList.add('card','col-4','m-3');
+        });
     })
 }
 
-pedirPost()
